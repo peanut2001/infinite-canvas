@@ -16,8 +16,8 @@ docker compose up -d
 You can also pull a versioned image directly from GHCR:
 
 ```bash
-docker pull ghcr.io/peanut2001/infinite_canvas:latest
-docker pull ghcr.io/peanut2001/infinite_canvas:0.15.2
+docker pull ghcr.io/peanut2001/infinite-canvas:latest
+docker pull ghcr.io/peanut2001/infinite-canvas:0.20.1
 ```
 
 Open `http://localhost:3000`.
@@ -58,7 +58,7 @@ No analytics are enabled by default. A deployment can enable GA4, Baidu Analytic
 ```yaml
 services:
   app:
-    image: ghcr.io/peanut2001/infinite_canvas:latest
+    image: ghcr.io/peanut2001/infinite-canvas:latest
     ports:
       - "3000:3000"
     environment:

@@ -11,7 +11,7 @@ permissions:
   packages: write
 
 env:
-  IMAGE_NAME: ghcr.io/peanut2001/infinite_canvas
+  IMAGE_NAME: ghcr.io/peanut2001/infinite-canvas
 
 jobs:
   prepare:
@@ -64,6 +64,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.IMAGE_NAME }}
+          labels: |
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
           tags: |
             type=raw,value=${{ steps.version.outputs.version }}
             type=raw,value=latest

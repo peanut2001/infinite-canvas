@@ -62,14 +62,14 @@ bun run dev
 
 ```bash
 docker run -d --name infinite-canvas -p 3000:3000 \
-  ghcr.io/peanut2001/infinite_canvas:latest
+  ghcr.io/peanut2001/infinite-canvas:latest
 ```
 
-固定版本运行（例如 `0.15.2`）：
+固定版本运行（例如 `0.20.1`）：
 
 ```bash
 docker run -d --name infinite-canvas -p 3000:3000 \
-  ghcr.io/peanut2001/infinite_canvas:0.15.2
+  ghcr.io/peanut2001/infinite-canvas:0.20.1
 ```
 
 向 `main` 推送并更新根目录 `VERSION` 后，GitHub Actions 会自动创建版本 Tag、Release，并发布 GHCR 镜像。
