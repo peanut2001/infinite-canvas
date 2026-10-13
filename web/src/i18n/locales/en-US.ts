@@ -29,7 +29,7 @@ export default {
         imageReadFailed: "Failed to read image",
     },
     settingsPanels: {
-        common: { auto: "Auto", low: "Low", medium: "Medium", high: "High", xhigh: "Extra high" },
+        common: { auto: "Auto", low: "Low", medium: "Medium", high: "High", xhigh: "Extra high", max: "Maximum" },
         image: { title: "Image settings", quality: "Quality", size: "Size", align16: "Align to multiples of 16", align16Hint: "Round dimensions up to the next multiple of 16 after input", resolution: "Resolution", aspectRatio: "Aspect ratio", transparent: "Transparent background", transparentHint: "Generate an image without a background when supported by the model", count: "Image count", images: "{{count}} images" },
         video: { title: "Video settings", quality: "Quality", size: "Size", seconds: "Seconds", mode: "Mode", modes: { frames: "First & last frame", reference: "General reference" }, resolution: "Resolution", ratio: "Aspect ratio", duration: "Duration", smart: "Smart", output: "Output", generateAudio: "Generate audio", watermark: "Add watermark", adaptive: "Adaptive", sizes: { landscape: "Landscape", portrait: "Portrait", square: "Square", widescreen: "Widescreen", tall: "Tall", auto: "Auto" }, ratios: { landscape: "Landscape", portrait: "Portrait", square: "Square", standardLandscape: "Standard landscape", standardPortrait: "Standard portrait", cinematic: "Cinematic", adaptive: "Adaptive" } },
         audio: { title: "Audio settings", voice: "Voice", format: "Format", speed: "Speed", instructions: "Voice instructions", instructionsPlaceholder: "For example: natural, warm, and suitable for narration." },
@@ -40,7 +40,7 @@ export default {
     imageReferences: { label: "Image {{index}}", separator: ", ", promptPrefix: "Reference image labels: {{labels}}. Use these labels to interpret image references in the prompt.\n\n{{prompt}}" },
     modelPlugin: {
         pollTimeout: "Plugin polling timed out. Check the request script or try again later.", executionFailed: "Model request script failed: {{message}}", noImages: "The model request script did not return any images",
-        variables: { prompt: "User prompt with the system prompt already included", images: "Reference images as a data URL array, available for image editing and image-to-video", videos: "Reference videos as a File array you can form.append; empty when none are attached from the canvas or workbench", audios: "Reference audio as a File array you can form.append; empty when none are attached from the canvas or workbench", messages: "Conversation message array including the system message", params: "Generation parameters: image {size,quality,count,background}, video {mode,seconds,size,resolution,ratio,generateAudio,watermark} (mode is frames for first/last frame or reference for general references; more than 2 images become reference), audio {voice,format,speed,instructions}", model: "Model name without the provider prefix", baseUrl: "Provider endpoint as entered, without appending /v1", apiKey: "Provider API key; add it to request headers yourself", systemPrompt: "Original system prompt", reasoningEffort: "Text reasoning effort; auto lets the script decide whether to send it", http: "Convenience client: http.post(path, body, {headers,params,responseType}), http.get(path, opts), and http.url(path). Authorization: Bearer apiKey is included by default and can be overridden. Relative paths append /v1 to baseUrl.", request: "Raw request({ method, url, headers, params, data, responseType }) with no default headers. Add authentication yourself. Relative URLs are joined to baseUrl without /v1.", poll: "poll(request, extract, {intervalMs,timeoutMs}) continues until extract returns a truthy value", sleep: "Delay with sleep(ms)", signal: "Cancellation signal that can be passed to http/request", onDelta: "Push streaming text with onDelta(text) for text models" },
+        variables: { prompt: "User prompt with the system prompt already included", images: "Reference images as a data URL array, available for image editing and image-to-video", videos: "Reference videos as a File array you can form.append; empty when none are attached from the canvas or workbench", audios: "Reference audio as a File array you can form.append; empty when none are attached from the canvas or workbench", messages: "Conversation message array including the system message", params: "Generation parameters: image {size,resolution,quality,count,background}, video {mode,seconds,size,resolution,ratio,generateAudio,watermark} (mode is frames for first/last frame or reference for general references; more than 2 images become reference), audio {voice,format,speed,instructions}", model: "Model name without the provider prefix", baseUrl: "Provider endpoint as entered, without appending /v1", apiKey: "Provider API key; add it to request headers yourself", systemPrompt: "Original system prompt", reasoningEffort: "Text reasoning effort; auto lets the script decide whether to send it", http: "Convenience client: http.post(path, body, {headers,params,responseType}), http.get(path, opts), and http.url(path). Authorization: Bearer apiKey is included by default and can be overridden. Relative paths append /v1 to baseUrl.", request: "Raw request({ method, url, headers, params, data, responseType }) with no default headers. Add authentication yourself. Relative URLs are joined to baseUrl without /v1.", poll: "poll(request, extract, {intervalMs,timeoutMs}) continues until extract returns a truthy value", sleep: "Delay with sleep(ms)", signal: "Cancellation signal that can be passed to http/request", onDelta: "Push streaming text with onDelta(text) for text models" },
         returns: { image: "Text-to-image and image editing use different APIs; distinguish them by whether images is empty. Return an image URL or data URL, an array of them, or [{ dataUrl }] / [{ url }] / [{ b64_json }].", video: "Poll inside the script and return { url }, { blob }, or a video URL string.", audio: "Return a Blob, base64/data URL string, or { b64_json } / { data } / { url }.", text: "Push streaming output with onDelta(text), then return the complete text string." },
         templates: { openai: "OpenAI format", gemini: "Gemini format" },
         authoring: {
@@ -253,7 +253,7 @@ export default {
         openAgent: "Open local Codex panel",
         nodeTypes: { image: "Image", text: "Text", config: "Generation config", video: "Video", audio: "Audio", group: "Group" },
         toolbar: {
-            select: "Select", pan: "Move", text: "Text", image: "Image", video: "Video", audio: "Audio", config: "Generation config", group: "Group", extensions: "Extension nodes", upload: "Upload assets", appearance: "Canvas appearance", clear: "Clear canvas",
+            select: "Select", pan: "Move", focus: "Center focus", text: "Text", image: "Image", video: "Video", audio: "Audio", config: "Generation config", group: "Group", extensions: "Extension nodes", upload: "Upload assets", appearance: "Canvas appearance", clear: "Clear canvas",
             themeMode: "Theme", light: "Light", dark: "Dark", gridStyle: "Grid style", dots: "Dots", lines: "Lines", blank: "Blank", imageInfo: "Image info",
         },
         project: {
@@ -271,7 +271,7 @@ export default {
         },
         videoFrames: { first: "Capture first frame", last: "Capture last frame", current: "Capture current frame", firstTitle: "{{name}} first frame", lastTitle: "{{name}} last frame", currentTitle: "{{name}} current frame", captured: "Image node created", failed: "Could not capture this frame. Try again." },
         sidePanel: {
-            canvas: "Canvas", assets: "Assets", prompts: "Prompt Library", resize: "Resize left panel", elements: "Canvas elements", select: "Select", searchNodes: "Search nodes", focusNode: "Focus node", preview: "Large preview", noNodes: "No nodes on this canvas", clearAll: "Clear all", selected: "{{count}} selected", exporting: "Exporting selected elements…", exportName: "canvas-elements-{{count}}", exported: "Exported {{count}} elements", exportFailed: "Export failed. Try again.",
+            canvas: "Canvas", assets: "Assets", prompts: "Prompt Library", resize: "Resize left panel", elements: "Canvas elements", select: "Select", searchNodes: "Search nodes", focusNode: "Focus node", preview: "Large preview", viewList: "Switch to list", viewGrid: "Switch to thumbnails", noNodes: "No nodes on this canvas", clearAll: "Clear all", selected: "{{count}} selected", exporting: "Exporting selected elements…", exportName: "canvas-elements-{{count}}", exported: "Exported {{count}} elements", exportFailed: "Export failed. Try again.",
             addingAssets: "Adding assets…", addedAssets: "Added {{count}} assets", mediaOnly: "Only image and video files are supported", addFailed: "Failed to add assets. Try again.", searchAssets: "Search assets", add: "Add", noAssets: "No assets", inserted: "Insert into canvas", removeAssetTitle: "Remove this asset?", remove: "Remove", removeAsset: "Remove asset", assetRemoved: "Asset removed",
             searchPrompts: "Search prompts", noPrompts: "No prompts", promptCopied: "Prompt copied", copyFailed: "Copy failed", loadFailedRetry: "Load failed. Click to retry.", noMatchingPrompts: "No matching prompts", sourceEmpty: "No prompts from this source", viewDetails: "View details",
             filter: { image: "Image", video: "Video", text: "Text", audio: "Audio", config: "Configuration", group: "Group" },
@@ -402,6 +402,7 @@ export default {
             contentEstimate: "Estimated from stored content",
             siteUsageHint: "Includes IndexedDB and other site data",
             quotaHint: "Allocated dynamically by the browser",
+            quotaUnavailable: "Quota estimation is unavailable in this browser",
             quotaProgress: "Site quota usage",
             mainDatabase: "Infinite Canvas data",
             records: "{{count}} records",
@@ -500,8 +501,16 @@ export default {
             defaultTextModel: "Default text model",
             defaultAudioModel: "Default audio model",
             generation: "Generation preferences",
+            imageResolution: "Default image resolution",
+            videoResolution: "Default video resolution",
             canvasImageCount: "Default canvas image count",
             canvasImageCountDescription: "Used by new canvas image and configuration nodes. Individual nodes can override it.",
+            regenerateBehavior: "When generating on a node that already has content",
+            regenerateBehaviorOverwrite: "Regenerate in place (overwrite the node)",
+            regenerateBehaviorOverwriteDescription: "Replace the node's content and settings in place without creating a new node. Copy the node first to keep the old result.",
+            regenerateBehaviorNewNode: "Create a new node (original behavior)",
+            regenerateBehaviorNewNodeDescription: "Keep the current node and create a new one for the result. Good for variants or branches.",
+            autoFocusOnSelect: "Auto-center on select",
             audioVoice: "Default audio voice",
             audioFormat: "Default audio format",
             audioSpeed: "Default audio speed",

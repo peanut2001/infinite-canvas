@@ -29,7 +29,7 @@ export default {
         imageReadFailed: "读取图片失败",
     },
     settingsPanels: {
-        common: { auto: "自动", low: "低", medium: "中", high: "高", xhigh: "极高" },
+        common: { auto: "自动", low: "低", medium: "中", high: "高", xhigh: "极高", max: "最高" },
         image: { title: "图像设置", quality: "质量", size: "尺寸", align16: "16 倍数对齐", align16Hint: "输入完成后自动向上补成 16 的倍数", resolution: "分辨率", aspectRatio: "宽高比", transparent: "透明背景", transparentHint: "开启后生成无背景的透明图像（仅部分模型可用）", count: "生成张数", images: "{{count}} 张" },
         video: { title: "视频设置", quality: "清晰度", size: "尺寸", seconds: "秒数", mode: "模式", modes: { frames: "首尾帧模式", reference: "全能参考模式" }, resolution: "分辨率", ratio: "比例", duration: "时长", smart: "智能", output: "输出", generateAudio: "生成声音", watermark: "添加水印", adaptive: "自适应", sizes: { landscape: "横屏", portrait: "竖屏", square: "方形", widescreen: "宽屏", tall: "长图", auto: "自动" }, ratios: { landscape: "横屏", portrait: "竖屏", square: "方形", standardLandscape: "标准横屏", standardPortrait: "标准竖屏", cinematic: "宽银幕", adaptive: "自适应" } },
         audio: { title: "音频设置", voice: "声音", format: "格式", speed: "语速", instructions: "声音指令", instructionsPlaceholder: "例如：自然、温暖、适合旁白。" },
@@ -40,7 +40,7 @@ export default {
     imageReferences: { label: "图片{{index}}", separator: "、", promptPrefix: "参考图片编号：{{labels}}。请按这些编号理解提示词中的图片引用。\n\n{{prompt}}" },
     modelPlugin: {
         pollTimeout: "插件轮询超时，请检查调用脚本或稍后重试", executionFailed: "模型调用脚本执行失败：{{message}}", noImages: "模型调用脚本没有返回图片",
-        variables: { prompt: "用户输入的提示词（已拼接系统提示词）", images: "参考图，dataURL 数组（改图 / 图生视频时有值）", videos: "参考视频 File 数组，可直接 form.append；画布或工作台接入的参考视频，无则为空数组", audios: "参考音频 File 数组，可直接 form.append；画布或工作台接入的参考音频，无则为空数组", messages: "对话消息数组，含系统消息", params: "生成参数：生图 {size,quality,count,background}、视频 {mode,seconds,size,resolution,ratio,generateAudio,watermark}（mode 为 frames 首尾帧或 reference 全能参考；超过 2 张图时为 reference）、音频 {voice,format,speed,instructions}", model: "模型名称（不含渠道前缀）", baseUrl: "渠道接口地址（原样，未拼 /v1）", apiKey: "渠道 API Key，请求头里自己带上", systemPrompt: "系统提示词原文", reasoningEffort: "文本推理强度；auto 表示由脚本决定是否传递", http: "便捷请求：http.post(path, body, {headers,params,responseType})、http.get(path, opts)、http.url(path)；默认带 Authorization: Bearer apiKey，可用 headers 覆盖；path 相对时按 baseUrl 拼 /v1", request: "原始请求 request({ method, url, headers, params, data, responseType })，不加任何默认头，鉴权头自己写；url 相对时按 baseUrl 拼接（不加 /v1）", poll: "轮询 poll(request, extract, {intervalMs,timeoutMs})，extract 返回真值即结束", sleep: "sleep(ms) 延时", signal: "取消信号，可透传给 http/request", onDelta: "onDelta(text) 推送流式文本（文本模型）" },
+        variables: { prompt: "用户输入的提示词（已拼接系统提示词）", images: "参考图，dataURL 数组（改图 / 图生视频时有值）", videos: "参考视频 File 数组，可直接 form.append；画布或工作台接入的参考视频，无则为空数组", audios: "参考音频 File 数组，可直接 form.append；画布或工作台接入的参考音频，无则为空数组", messages: "对话消息数组，含系统消息", params: "生成参数：生图 {size,resolution,quality,count,background}、视频 {mode,seconds,size,resolution,ratio,generateAudio,watermark}（mode 为 frames 首尾帧或 reference 全能参考；超过 2 张图时为 reference）、音频 {voice,format,speed,instructions}", model: "模型名称（不含渠道前缀）", baseUrl: "渠道接口地址（原样，未拼 /v1）", apiKey: "渠道 API Key，请求头里自己带上", systemPrompt: "系统提示词原文", reasoningEffort: "文本推理强度；auto 表示由脚本决定是否传递", http: "便捷请求：http.post(path, body, {headers,params,responseType})、http.get(path, opts)、http.url(path)；默认带 Authorization: Bearer apiKey，可用 headers 覆盖；path 相对时按 baseUrl 拼 /v1", request: "原始请求 request({ method, url, headers, params, data, responseType })，不加任何默认头，鉴权头自己写；url 相对时按 baseUrl 拼接（不加 /v1）", poll: "轮询 poll(request, extract, {intervalMs,timeoutMs})，extract 返回真值即结束", sleep: "sleep(ms) 延时", signal: "取消信号，可透传给 http/request", onDelta: "onDelta(text) 推送流式文本（文本模型）" },
         returns: { image: "文生图（images 为空）和图生图（images 有参考图）接口不同，脚本需自行区分；返回图片 URL 或 dataURL 字符串，也可返回它们的数组，或 [{ dataUrl }] / [{ url }] / [{ b64_json }]", video: "脚本内部完成轮询，返回 { url } 或 { blob } 或视频 URL 字符串", audio: "返回 Blob，或 base64 / dataURL 字符串，或 { b64_json } / { data } / { url }", text: "用 onDelta(text) 推送流式，最终 return 完整文本字符串" },
         templates: { openai: "OpenAI 规范", gemini: "Gemini 规范" },
         authoring: {
@@ -253,7 +253,7 @@ export default {
         openAgent: "打开本地 Codex 面板",
         nodeTypes: { image: "图片", text: "文本", config: "生成配置", video: "视频", audio: "音频", group: "组" },
         toolbar: {
-            select: "选择", pan: "移动", text: "文本", image: "图片", video: "视频", audio: "音频", config: "生成配置", group: "组", extensions: "扩展节点", upload: "上传资产", appearance: "画布外观", clear: "清空画布",
+            select: "选择", pan: "移动", focus: "居中聚焦", text: "文本", image: "图片", video: "视频", audio: "音频", config: "生成配置", group: "组", extensions: "扩展节点", upload: "上传资产", appearance: "画布外观", clear: "清空画布",
             themeMode: "主题模式", light: "浅色", dark: "深色", gridStyle: "网格样式", dots: "点", lines: "线", blank: "空白", imageInfo: "图片信息",
         },
         project: {
@@ -271,7 +271,7 @@ export default {
         },
         videoFrames: { first: "截取首帧", last: "截取尾帧", current: "截取当前帧", firstTitle: "{{name}} 首帧", lastTitle: "{{name}} 尾帧", currentTitle: "{{name}} 当前帧", captured: "已生成图片节点", failed: "无法截取该画面，请重试" },
         sidePanel: {
-            canvas: "画布", assets: "资产", prompts: "提示词库", resize: "调整左侧面板宽度", elements: "画布元素", select: "选择", searchNodes: "搜索节点", focusNode: "定位到节点", preview: "放大预览", noNodes: "画布暂无节点", clearAll: "取消全选", selected: "已选 {{count}}", exporting: "正在导出选中元素…", exportName: "画布元素-{{count}}个", exported: "已导出 {{count}} 个元素", exportFailed: "导出失败，请重试",
+            canvas: "画布", assets: "资产", prompts: "提示词库", resize: "调整左侧面板宽度", elements: "画布元素", select: "选择", searchNodes: "搜索节点", focusNode: "定位到节点", preview: "放大预览", viewList: "切换为列表", viewGrid: "切换为缩略图", noNodes: "画布暂无节点", clearAll: "取消全选", selected: "已选 {{count}}", exporting: "正在导出选中元素…", exportName: "画布元素-{{count}}个", exported: "已导出 {{count}} 个元素", exportFailed: "导出失败，请重试",
             addingAssets: "正在添加资产…", addedAssets: "已添加 {{count}} 个资产", mediaOnly: "仅支持图片或视频文件", addFailed: "添加失败，请重试", searchAssets: "搜索资产", add: "添加", noAssets: "暂无资产", inserted: "插入画布", removeAssetTitle: "移除该资产？", remove: "移除", removeAsset: "移除资产", assetRemoved: "资产已移除",
             searchPrompts: "搜索提示词", noPrompts: "暂无提示词", promptCopied: "已复制提示词", copyFailed: "复制失败", loadFailedRetry: "加载失败，点击重试", noMatchingPrompts: "无匹配提示词", sourceEmpty: "该来源暂无提示词", viewDetails: "查看详情",
             filter: { image: "图片", video: "视频", text: "文本", audio: "音频", config: "配置", group: "分组" },
@@ -402,6 +402,7 @@ export default {
             contentEstimate: "按仓库内容估算",
             siteUsageHint: "包含 IndexedDB 等站点数据",
             quotaHint: "由浏览器动态分配",
+            quotaUnavailable: "当前浏览器不提供配额估算",
             quotaProgress: "站点配额使用率",
             mainDatabase: "Infinite Canvas 主数据",
             records: "{{count}} 条",
@@ -500,8 +501,16 @@ export default {
             defaultTextModel: "默认文本模型",
             defaultAudioModel: "默认音频模型",
             generation: "生成偏好",
+            imageResolution: "默认生图分辨率",
+            videoResolution: "默认视频分辨率",
             canvasImageCount: "画布默认生图张数",
             canvasImageCountDescription: "新建画布生图和配置节点默认使用，单个节点仍可单独覆盖。",
+            regenerateBehavior: "已有内容的节点再次生成时",
+            regenerateBehaviorOverwrite: "原地重新生成（覆盖当前节点）",
+            regenerateBehaviorOverwriteDescription: "直接替换该节点的内容和参数，不新建节点。想保留旧结果时，先复制该节点。",
+            regenerateBehaviorNewNode: "新建节点（原行为）",
+            regenerateBehaviorNewNodeDescription: "保留当前节点，新建一个节点承接生成结果，适合做变体或分支。",
+            autoFocusOnSelect: "选中自动居中",
             audioVoice: "默认音频声音",
             audioFormat: "默认音频格式",
             audioSpeed: "默认音频语速",
