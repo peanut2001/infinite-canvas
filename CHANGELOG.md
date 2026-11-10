@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.20.2 - 2026-11-10
+
 + [修复] Docker 发布改用仓库同名的 GHCR 软件包并关联源码仓库，避开旧软件包写入权限冲突。
 + [调整] 顶部仓库入口改用 LIVELY Logo 并指向当前项目仓库，优化按钮间距及深浅主题展示。
 + [新增] 推送 main 并更新 VERSION 后自动创建 GitHub Release，并发布带版本号与 latest 标签的多架构 GHCR Docker 镜像。
